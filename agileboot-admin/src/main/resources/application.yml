@@ -1,0 +1,49 @@
+# 开发环境配置
+server:
+  # 服务器的HTTP端口，默认为8080
+  port: 8080
+  servlet:
+    # 应用的访问路径
+    context-path: /
+  tomcat:
+    # tomcat的URI编码
+    uri-encoding: UTF-8
+    # 连接数满后的排队数，默认为100
+    accept-count: 1000
+    threads:
+      # tomcat最大线程数，默认为200
+      max: 800
+      # Tomcat启动初始化的线程数，默认值10
+      min-spare: 100
+
+
+# Spring配置 如果需要无Mysql  无Redis直接启动的话  dev改为test
+# 生产环境把dev改为prod
+spring:
+  profiles:
+    active: basic,dev
+
+# 如果需要无Mysql  无Redis直接启动的话  可以将这两个参数置为true, 并且spring.profile.active: dev换成test
+# redis的端口可能会被占用，如果被占用请自己修改一下端口号
+agileboot:
+  embedded:
+    mysql: false
+    redis: false
+
+
+
+springdoc:
+  api-docs:
+    enabled: true
+    groups:
+      enabled: true
+  group-configs:
+    - group: '公共管理API'
+      packages-to-scan: com.agileboot.admin.controller.common
+    - group: '监控管理API'
+      packages-to-scan: com.agileboot.admin.controller.monitor
+    - group: '系统管理API'
+      packages-to-scan: com.agileboot.admin.controller.system
+    - group: '工具管理API'
+      packages-to-scan: com.agileboot.admin.controller.tool
+
